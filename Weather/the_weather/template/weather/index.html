@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What's the weather like?</title>
+    <!-- Replace the old Bulma CSS with Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    What's the weather like?
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        {{form.name}}
+                        <div class="input-group-append">
+                            <button class="btn btn-info" type="submit" id="add-city-btn">
+                                Add City
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 offset-md-4">
+                {% for city_weather in weather_data %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ city_weather.city }}</h5>
+                        <p class="card-subtitle mb-2 text-muted">{{ city_weather.temperature }}° F</p>
+                        <p class="card-text">{{ city_weather.description }}</p>
+                        <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Weather Icon"
+                            class="img-fluid">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-5 py-3 bg-primary text-white text-center">
+        Weather App &copy; {{ current_year }}
+    </footer>
+
+    <!-- Replace the old Bulma JS with Bootstrap 4 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
